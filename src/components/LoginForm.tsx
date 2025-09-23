@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -50,12 +51,12 @@ const LoginForm = () => {
           <div className="space-y-2">
             <div className="flex justify-between items-center">
               <Label htmlFor="password" className="text-text-primary font-medium">contraseña</Label>
-              <button
-                type="button"
+              <Link
+                to="/forgot-password"
                 className="text-sm text-text-muted hover:text-brand-blue transition-colors"
               >
                 ¿Olvidaste tu contraseña?
-              </button>
+              </Link>
             </div>
             <Input
               id="password"
