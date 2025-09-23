@@ -1,0 +1,102 @@
+import { 
+  Folder, 
+  Activity, 
+  FileText, 
+  LogOut,
+  Search,
+  User,
+  Plus
+} from "lucide-react";
+import { NavLink, useLocation } from "react-router-dom";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarHeader,
+  SidebarFooter,
+  useSidebar,
+} from "@/components/ui/sidebar";
+import innosistemaSIcon from "@/assets/innosistemas-icon.png";
+
+const menuItems = [
+  { title: "mis proyectos", url: "/dashboard", icon: Folder },
+  { title: "actividad", url: "/dashboard/activity", icon: Activity },
+  { title: "documentos compartidos", url: "/dashboard/documents", icon: FileText },
+];
+
+export function AppSidebar() {
+  const { state } = useSidebar();
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const collapsed = state === "collapsed";
+
+  const isActive = (path: string) => currentPath === path;
+
+  const getNavCls = ({ isActive }: { isActive: boolean }) =>
+    isActive ? "bg-muted text-foreground font-medium" : "text-muted-foreground hover:bg-muted/50 hover:text-foreground";
+
+  return (
+    <Sidebar className={collapsed ? "w-14" : "w-60"}>
+      <SidebarHeader className="p-4 border-b">
+        <div className="flex items-center space-x-3">
+          <img 
+            src={innosistemaSIcon} 
+            alt="InnoSistemas Icon" 
+            className="w-8 h-8 object-contain"
+          />
+          {!collapsed && (
+            <h1 className="text-lg font-semibold text-foreground">
+              InnoSistemas
+            </h1>
+          )}
+        </div>
+      </SidebarHeader>
+
+      <SidebarContent className="px-2 py-4">
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {menuItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink 
+                      to={item.url} 
+                      end={item.url === "/dashboard"}
+                      className={({ isActive }) => getNavCls({ isActive })}
+                    >
+                      <item.icon className="h-4 w-4" />
+                      {!collapsed && <span className="ml-3">{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+
+      <SidebarFooter className="p-2 border-t">
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <button 
+                onClick={() => {
+                  // Handle logout
+                  console.log("Logout clicked");
+                }}
+                className="w-full text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+              >
+                <LogOut className="h-4 w-4" />
+                {!collapsed && <span className="ml-3">cerrar sesión</span>}
+              </button>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
+    </Sidebar>
+  );
+}
