@@ -1,11 +1,31 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import BrandPanel from "@/components/BrandPanel";
+import LoginForm from "@/components/LoginForm";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-surface-light">
+      <div className="grid lg:grid-cols-2 min-h-screen">
+        {/* Left Panel - Brand */}
+        <div className="hidden lg:block">
+          <BrandPanel />
+        </div>
+        
+        {/* Right Panel - Login Form */}
+        <div className="flex items-center justify-center p-6 lg:p-12">
+          <div className="w-full max-w-md">
+            {/* Mobile brand header */}
+            <div className="lg:hidden mb-8 text-center">
+              <div className="flex items-center justify-center space-x-2 mb-4">
+                <div className="bg-foreground text-background p-2 rounded">
+                  <code className="text-sm font-mono">&lt;/&gt;</code>
+                </div>
+                <h1 className="text-2xl font-bold text-text-primary">Innosistemas</h1>
+              </div>
+            </div>
+            
+            <LoginForm />
+          </div>
+        </div>
       </div>
     </div>
   );
