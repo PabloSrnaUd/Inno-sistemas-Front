@@ -8,6 +8,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Dashboard from "./pages/Dashboard";
 import Activity from "./pages/Activity";
 import Documents from "./pages/Documents";
+import AdminUserManagement from "./pages/AdminUserManagement";
+import TeacherDashboard from "./pages/TeacherDashboard";
 import DashboardLayout from "./components/DashboardLayout";
 import NotFound from "./pages/NotFound";
 
@@ -37,6 +39,20 @@ const App = () => (
           <Route path="/dashboard/documents" element={
             <DashboardLayout>
               <Documents />
+            </DashboardLayout>
+          } />
+          
+          {/* Admin routes */}
+          <Route path="/admin/users" element={
+            <DashboardLayout>
+              <AdminUserManagement />
+            </DashboardLayout>
+          } />
+          
+          {/* Teacher routes */}
+          <Route path="/teacher/dashboard" element={
+            <DashboardLayout>
+              <TeacherDashboard />
             </DashboardLayout>
           } />
           

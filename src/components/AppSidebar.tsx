@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { 
   Folder, 
   Activity, 
@@ -7,7 +8,7 @@ import {
   User,
   Plus
 } from "lucide-react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
@@ -21,6 +22,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import innosistemaSIcon from "@/assets/innosistemas-icon.png";
+import LogoutConfirmation from "@/components/LogoutConfirmation";
 
 const menuItems = [
   { title: "mis proyectos", url: "/dashboard", icon: Folder },
@@ -31,8 +33,10 @@ const menuItems = [
 export function AppSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
+  const navigate = useNavigate();
   const currentPath = location.pathname;
   const collapsed = state === "collapsed";
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const isActive = (path: string) => currentPath === path;
 
@@ -84,10 +88,7 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <button 
-                onClick={() => {
-                  // Handle logout
-                  console.log("Logout clicked");
-                }}
+                onClick={() => setShowLogoutConfirm(true)}
                 className="w-full text-muted-foreground hover:bg-muted/50 hover:text-foreground"
               >
                 <LogOut className="h-4 w-4" />
@@ -97,6 +98,15 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
+      
+      <LogoutConfirmation
+        isOpen={showLogoutConfirm}
+        onClose={() => setShowLogoutConfirm(false)}
+        onConfirm={() => {
+          setShowLogoutConfirm(false);
+          navigate("/");
+        }}
+      />
     </Sidebar>
   );
 }

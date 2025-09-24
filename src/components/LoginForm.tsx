@@ -12,10 +12,17 @@ const LoginForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
+    // Handle login logic based on user type
     console.log("Login attempt with:", { email, password });
-    // For demo purposes, navigate to dashboard
-    navigate("/dashboard");
+    
+    // Route based on user credentials
+    if (email === "admin@innosistemas.com") {
+      navigate("/admin/users");
+    } else if (email === "docente@innosistemas.com") {
+      navigate("/teacher/dashboard");
+    } else {
+      navigate("/dashboard");
+    }
   };
 
   return (
@@ -79,6 +86,52 @@ const LoginForm = () => {
           </div>
         </form>
         
+        {/* Test Credentials Section */}
+        <div className="bg-muted/30 rounded-lg p-4 space-y-3">
+          <h3 className="text-sm font-semibold text-text-primary">Credenciales de Prueba:</h3>
+          <div className="space-y-2 text-xs">
+            <div className="flex justify-between items-center">
+              <span className="text-text-secondary">Administrador:</span>
+              <button 
+                type="button"
+                onClick={() => {
+                  setEmail("admin@innosistemas.com");
+                  setPassword("admin123");
+                }}
+                className="text-brand-blue hover:underline font-medium"
+              >
+                admin@innosistemas.com / admin123
+              </button>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-text-secondary">Docente:</span>
+              <button 
+                type="button"
+                onClick={() => {
+                  setEmail("docente@innosistemas.com");
+                  setPassword("docente123");
+                }}
+                className="text-brand-blue hover:underline font-medium"
+              >
+                docente@innosistemas.com / docente123
+              </button>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-text-secondary">Usuario:</span>
+              <button 
+                type="button"
+                onClick={() => {
+                  setEmail("usuario@innosistemas.com");
+                  setPassword("usuario123");
+                }}
+                className="text-brand-blue hover:underline font-medium"
+              >
+                usuario@innosistemas.com / usuario123
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div className="text-center pt-4">
           <p className="text-sm text-text-muted">
             ¿Problemas para acceder?{" "}
