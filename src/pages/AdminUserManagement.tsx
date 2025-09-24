@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -43,6 +44,7 @@ const AdminUserManagement = () => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [newUserName, setNewUserName] = useState("");
   const [newUserEmail, setNewUserEmail] = useState("");
+  const [newUserRole, setNewUserRole] = useState("");
 
   const toggleUserSelection = (userId: number) => {
     setSelectedUsers(prev => 
@@ -73,17 +75,18 @@ const AdminUserManagement = () => {
   };
 
   const handleCreateUser = () => {
-    if (newUserName && newUserEmail) {
+    if (newUserName && newUserEmail && newUserRole) {
       const newUser: User = {
         id: Math.max(...users.map(u => u.id)) + 1,
         name: newUserName,
         email: newUserEmail,
-        role: "Estudiante",
+        role: newUserRole,
         status: "active"
       };
       setUsers(prev => [...prev, newUser]);
       setNewUserName("");
       setNewUserEmail("");
+      setNewUserRole("");
       setIsCreateDialogOpen(false);
     }
   };
@@ -179,12 +182,25 @@ const AdminUserManagement = () => {
                       placeholder="Ingrese el email"
                     />
                   </div>
+                  <div>
+                    <Label htmlFor="userRole">Rol</Label>
+                    <Select value={newUserRole} onValueChange={setNewUserRole}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleccione un rol" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Administrador">Administrador</SelectItem>
+                        <SelectItem value="Docente">Docente</SelectItem>
+                        <SelectItem value="Estudiante">Estudiante</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
                 <DialogFooter>
                   <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
                     Cancelar
                   </Button>
-                  <Button onClick={handleCreateUser} disabled={!newUserName || !newUserEmail}>
+                  <Button onClick={handleCreateUser} disabled={!newUserName || !newUserEmail || !newUserRole}>
                     Crear
                   </Button>
                 </DialogFooter>

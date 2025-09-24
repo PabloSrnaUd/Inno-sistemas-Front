@@ -1,196 +1,183 @@
-import { Search, User, Plus, BookOpen, Users, Calendar, FileText } from "lucide-react";
+import { useState } from "react";
+import { Search, User, FileText, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import LogoutConfirmation from "@/components/LogoutConfirmation";
+import { useNavigate } from "react-router-dom";
+import innosistemaSIcon from "@/assets/innosistemas-icon.png";
 
 const TeacherDashboard = () => {
-  const courses = [
-    { 
-      id: 1, 
-      name: "Programación I", 
-      students: 25, 
-      nextClass: "Lunes 14:00",
-      assignments: 3
-    },
-    { 
-      id: 2, 
-      name: "Base de Datos", 
-      students: 30, 
-      nextClass: "Martes 10:00",
-      assignments: 2
-    },
-    { 
-      id: 3, 
-      name: "Ingeniería de Software", 
-      students: 22, 
-      nextClass: "Miércoles 16:00",
-      assignments: 5
-    },
+  const navigate = useNavigate();
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState("");
+  const [selectedProject, setSelectedProject] = useState("");
+
+  const students = [
+    "Estudiante 1",
+    "Estudiante 2", 
+    "Estudiante 3",
+    "Estudiante 4",
+    "Estudiante 5",
+    "Estudiante 6",
+    "Estudiante 7",
+    "Estudiante 8"
   ];
 
-  const recentActivities = [
-    { id: 1, type: "assignment", text: "Nueva tarea entregada en Programación I", time: "hace 2 horas" },
-    { id: 2, type: "grade", text: "Calificaciones publicadas para Base de Datos", time: "hace 4 horas" },
-    { id: 3, type: "message", text: "Nuevo mensaje de estudiante", time: "hace 1 día" },
+  const projects = [
+    { id: 1, name: "Nombre proyecto", selected: false },
+    { id: 2, name: "Nombre proyecto", selected: false },
+    { id: 3, name: "Nombre proyecto", selected: false }
   ];
 
   return (
-    <div className="flex-1 flex flex-col min-h-screen bg-surface-light">
-      {/* Header */}
-      <header className="bg-surface-white border-b px-6 py-4">
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-medium text-text-primary">panel docente</h1>
-          <Button variant="outline" className="flex items-center space-x-2">
-            <User className="h-4 w-4" />
-            <span>Perfil</span>
+    <div className="flex h-screen bg-gray-200">
+      {/* Sidebar */}
+      <div className="w-48 bg-white border-r flex flex-col">
+        {/* Header */}
+        <div className="p-4 border-b bg-gray-100 flex items-center space-x-2">
+          <img 
+            src={innosistemaSIcon} 
+            alt="InnoSistemas Icon" 
+            className="w-6 h-6 object-contain"
+          />
+          <span className="font-medium text-sm">InnoSistemas</span>
+        </div>
+
+        {/* Navigation */}
+        <div className="p-4">
+          <div className="mb-4">
+            <Button 
+              variant="ghost" 
+              className="w-full justify-start text-left bg-gray-100 text-gray-800"
+            >
+              Proyectos
+            </Button>
+          </div>
+          <div className="text-sm text-gray-600 mb-2">Listado</div>
+          <div className="space-y-1">
+            {students.map((student, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedStudent(student)}
+                className={`w-full text-left px-2 py-1 rounded text-sm transition-colors ${
+                  selectedStudent === student 
+                    ? 'bg-blue-100 text-blue-800' 
+                    : 'hover:bg-gray-100'
+                }`}
+              >
+                {student}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-auto p-4 border-t">
+          <Button 
+            variant="ghost" 
+            className="w-full justify-start text-left"
+            onClick={() => setShowLogoutConfirm(true)}
+          >
+            Cerrar Sesión
           </Button>
         </div>
-      </header>
+      </div>
 
       {/* Main Content */}
-      <main className="flex-1 p-6">
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-surface-white">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-text-secondary">
-                Total Cursos
-              </CardTitle>
-              <BookOpen className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-text-primary">3</div>
-              <p className="text-xs text-muted-foreground">
-                +1 desde el semestre pasado
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-surface-white">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-text-secondary">
-                Total Estudiantes
-              </CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-text-primary">77</div>
-              <p className="text-xs text-muted-foreground">
-                +12% desde el mes pasado
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-surface-white">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-text-secondary">
-                Próximas Clases
-              </CardTitle>
-              <Calendar className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-text-primary">5</div>
-              <p className="text-xs text-muted-foreground">
-                Esta semana
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-surface-white">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-text-secondary">
-                Tareas Pendientes
-              </CardTitle>
-              <FileText className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-text-primary">10</div>
-              <p className="text-xs text-muted-foreground">
-                Por revisar
-              </p>
-            </CardContent>
-          </Card>
-        </div>
+      <div className="flex-1 flex flex-col">
+        {/* Header */}
+        <header className="bg-gray-300 p-4 flex items-center justify-between">
+          <h1 className="text-lg font-medium">Hola, Docente</h1>
+          <Button variant="outline" size="sm" className="flex items-center space-x-2">
+            <User className="h-4 w-4" />
+          </Button>
+        </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Courses Section */}
-          <div>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-text-primary">Mis Cursos</h2>
-              <Button variant="outline" size="sm">
-                <Plus className="h-4 w-4 mr-2" />
-                Nuevo Curso
-              </Button>
+        {/* Content */}
+        <main className="flex-1 p-6 bg-white m-4 rounded-lg">
+          <div className="space-y-6">
+            {/* Student Selection */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Estudiante Seleccionado:
+              </label>
+              <Input
+                value={selectedStudent}
+                onChange={(e) => setSelectedStudent(e.target.value)}
+                placeholder="Seleccione un estudiante"
+                className="max-w-md"
+              />
             </div>
-            
-            <div className="space-y-4">
-              {courses.map((course) => (
-                <Card key={course.id} className="bg-surface-white hover:bg-muted/20 transition-colors cursor-pointer">
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="font-semibold text-text-primary">{course.name}</h3>
-                      <Badge variant="secondary" className="bg-brand-blue/10 text-brand-blue">
-                        {course.students} estudiantes
-                      </Badge>
-                    </div>
-                    <div className="space-y-2 text-sm text-text-secondary">
-                      <div className="flex items-center justify-between">
-                        <span>Próxima clase:</span>
-                        <span className="font-medium">{course.nextClass}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span>Tareas activas:</span>
-                        <span className="font-medium">{course.assignments}</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
 
-          {/* Recent Activity Section */}
-          <div>
-            <h2 className="text-lg font-semibold text-text-primary mb-6">Actividad Reciente</h2>
-            
-            <Card className="bg-surface-white">
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  {recentActivities.map((activity) => (
-                    <div key={activity.id} className="flex items-start space-x-3 pb-4 border-b last:border-b-0">
-                      <div className="w-2 h-2 bg-brand-blue rounded-full mt-2 flex-shrink-0"></div>
-                      <div className="flex-1">
-                        <p className="text-sm text-text-primary">{activity.text}</p>
-                        <p className="text-xs text-muted-foreground mt-1">{activity.time}</p>
-                      </div>
-                    </div>
-                  ))}
+            {/* Projects Section */}
+            <div>
+              <h3 className="text-sm font-medium mb-4">Proyectos del Estudiante:</h3>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Project Selection */}
+                <div>
+                  <h4 className="text-sm font-medium mb-3">Seleccionar Proyecto</h4>
+                  <div className="space-y-2">
+                    {projects.map((project) => (
+                      <Card 
+                        key={project.id} 
+                        className={`cursor-pointer transition-colors ${
+                          selectedProject === project.name 
+                            ? 'bg-blue-50 border-blue-200' 
+                            : 'hover:bg-gray-50'
+                        }`}
+                        onClick={() => setSelectedProject(project.name)}
+                      >
+                        <CardContent className="p-4">
+                          <p className="text-sm font-medium">{project.name}</p>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
 
-        {/* Quick Actions */}
-        <div className="mt-8">
-          <h2 className="text-lg font-semibold text-text-primary mb-6">Acciones Rápidas</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Button variant="outline" className="h-16 flex flex-col space-y-2 bg-surface-white">
-              <FileText className="h-5 w-5" />
-              <span>Nueva Tarea</span>
-            </Button>
-            <Button variant="outline" className="h-16 flex flex-col space-y-2 bg-surface-white">
-              <Calendar className="h-5 w-5" />
-              <span>Programar Clase</span>
-            </Button>
-            <Button variant="outline" className="h-16 flex flex-col space-y-2 bg-surface-white">
-              <Users className="h-5 w-5" />
-              <span>Ver Estudiantes</span>
-            </Button>
+                {/* Actions */}
+                <div className="space-y-3">
+                  <Button 
+                    variant="outline" 
+                    className="w-full h-12 bg-gray-100"
+                    disabled={!selectedProject}
+                  >
+                    Visualizar proyecto seleccionado
+                  </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    className="w-full h-12 bg-gray-100 flex items-center justify-center space-x-2"
+                  >
+                    <BarChart3 className="h-4 w-4" />
+                    <span>Reportes</span>
+                  </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    className="w-full h-12 bg-gray-100 flex items-center justify-center space-x-2"
+                  >
+                    <FileText className="h-4 w-4" />
+                    <span>Documentos Asociados</span>
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
+
+      <LogoutConfirmation
+        isOpen={showLogoutConfirm}
+        onClose={() => setShowLogoutConfirm(false)}
+        onConfirm={() => {
+          setShowLogoutConfirm(false);
+          navigate("/");
+        }}
+      />
     </div>
   );
 };
