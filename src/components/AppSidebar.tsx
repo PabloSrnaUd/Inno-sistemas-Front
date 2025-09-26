@@ -28,6 +28,7 @@ const menuItems = [
   { title: "mis proyectos", url: "/dashboard", icon: Folder },
   { title: "actividad", url: "/dashboard/activity", icon: Activity },
   { title: "documentos compartidos", url: "/dashboard/documents", icon: FileText },
+  { title: "Panel Docente", url: "/teacher/dashboard", icon: User },
 ];
 
 export function AppSidebar() {
