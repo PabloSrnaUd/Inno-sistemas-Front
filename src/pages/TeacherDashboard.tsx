@@ -1,16 +1,10 @@
 import { useState } from "react";
-import { Search, User, FileText, BarChart3 } from "lucide-react";
+import { User, FileText, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import LogoutConfirmation from "@/components/LogoutConfirmation";
-import { useNavigate } from "react-router-dom";
-import innosistemaSIcon from "@/assets/innosistemas-icon.png";
+import { Card, CardContent } from "@/components/ui/card";
 
 const TeacherDashboard = () => {
-  const navigate = useNavigate();
-  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState("");
   const [selectedProject, setSelectedProject] = useState("");
 
@@ -32,29 +26,27 @@ const TeacherDashboard = () => {
   ];
 
   return (
-    <div className="flex h-screen bg-gray-200">
-      {/* Sidebar */}
-      <div className="w-48 bg-white border-r flex flex-col">
-        {/* Header */}
-        <div className="p-4 border-b bg-gray-100 flex items-center space-x-2">
-          <img 
-            src={innosistemaSIcon} 
-            alt="InnoSistemas Icon" 
-            className="w-6 h-6 object-contain"
-          />
-          <span className="font-medium text-sm">InnoSistemas</span>
-        </div>
-
-        {/* Navigation */}
-        <div className="p-4">
-          <div className="mb-4">
-            <Button 
-              variant="ghost" 
-              className="w-full justify-start text-left bg-gray-100 text-gray-800"
-            >
-              Proyectos
+    <div className="flex h-screen">
+      {/* Left Panel - Projects and Students */}
+      <div className="w-64 bg-gray-100 border-r flex flex-col">
+        {/* Projects Section */}
+        <div className="p-4 border-b">
+          <h2 className="font-medium text-sm mb-3">Proyectos</h2>
+          <div className="space-y-1">
+            <Button variant="ghost" className="w-full justify-start text-left bg-blue-100 text-blue-800">
+              mis proyectos
+            </Button>
+            <Button variant="ghost" className="w-full justify-start text-left hover:bg-gray-200">
+              actividad
+            </Button>
+            <Button variant="ghost" className="w-full justify-start text-left hover:bg-gray-200">
+              documentos compartidos
             </Button>
           </div>
+        </div>
+
+        {/* Students List */}
+        <div className="flex-1 p-4">
           <div className="text-sm text-gray-600 mb-2">Listado</div>
           <div className="space-y-1">
             {students.map((student, index) => (
@@ -71,17 +63,6 @@ const TeacherDashboard = () => {
               </button>
             ))}
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-auto p-4 border-t">
-          <Button 
-            variant="ghost" 
-            className="w-full justify-start text-left"
-            onClick={() => setShowLogoutConfirm(true)}
-          >
-            Cerrar Sesión
-          </Button>
         </div>
       </div>
 
@@ -169,15 +150,6 @@ const TeacherDashboard = () => {
           </div>
         </main>
       </div>
-
-      <LogoutConfirmation
-        isOpen={showLogoutConfirm}
-        onClose={() => setShowLogoutConfirm(false)}
-        onConfirm={() => {
-          setShowLogoutConfirm(false);
-          navigate("/");
-        }}
-      />
     </div>
   );
 };
