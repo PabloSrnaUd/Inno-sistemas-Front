@@ -10,6 +10,9 @@ import Activity from "./pages/Activity";
 import Documents from "./pages/Documents";
 import AdminUserManagement from "./pages/AdminUserManagement";
 import TeacherDashboard from "./pages/TeacherDashboard";
+import DocumentSecurity from "./pages/DocumentSecurity";
+import NotificationSettings from "./pages/NotificationSettings";
+import MyDocuments from "./pages/MyDocuments";
 import DashboardLayout from "./components/DashboardLayout";
 import NotFound from "./pages/NotFound";
 
@@ -46,6 +49,23 @@ const App = () => (
           <Route path="/admin/users" element={
             <DashboardLayout>
               <AdminUserManagement />
+            </DashboardLayout>
+          } />
+          
+          {/* Security routes - HU-006, HU-007, HU-008 */}
+          <Route path="/document-security" element={
+            <DashboardLayout>
+              <DocumentSecurity />
+            </DashboardLayout>
+          } />
+          <Route path="/notification-settings" element={
+            <DashboardLayout>
+              <NotificationSettings />
+            </DashboardLayout>
+          } />
+          <Route path="/my-documents" element={
+            <DashboardLayout>
+              <MyDocuments />
             </DashboardLayout>
           } />
           
