@@ -7,12 +7,10 @@ import Index from "./pages/Index";
 import ForgotPassword from "./pages/ForgotPassword";
 import Dashboard from "./pages/Dashboard";
 import Activity from "./pages/Activity";
-import Documents from "./pages/Documents";
+import DocumentsHub from "./pages/DocumentsHub";
 import AdminUserManagement from "./pages/AdminUserManagement";
 import TeacherDashboard from "./pages/TeacherDashboard";
-import DocumentSecurity from "./pages/DocumentSecurity";
 import NotificationSettings from "./pages/NotificationSettings";
-import MyDocuments from "./pages/MyDocuments";
 import DashboardLayout from "./components/DashboardLayout";
 import NotFound from "./pages/NotFound";
 
@@ -39,9 +37,11 @@ const App = () => (
               <Activity />
             </DashboardLayout>
           } />
-          <Route path="/dashboard/documents" element={
+          
+          {/* Documents Hub - HU-006, HU-007, HU-008, HU-010, HU-012 */}
+          <Route path="/documents" element={
             <DashboardLayout>
-              <Documents />
+              <DocumentsHub />
             </DashboardLayout>
           } />
           
@@ -52,20 +52,10 @@ const App = () => (
             </DashboardLayout>
           } />
           
-          {/* Security routes - HU-006, HU-007, HU-008 */}
-          <Route path="/document-security" element={
-            <DashboardLayout>
-              <DocumentSecurity />
-            </DashboardLayout>
-          } />
+          {/* Settings */}
           <Route path="/notification-settings" element={
             <DashboardLayout>
               <NotificationSettings />
-            </DashboardLayout>
-          } />
-          <Route path="/my-documents" element={
-            <DashboardLayout>
-              <MyDocuments />
             </DashboardLayout>
           } />
           

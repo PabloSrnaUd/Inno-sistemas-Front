@@ -135,18 +135,7 @@ const MyDocuments = () => {
   };
 
   return (
-    <div className="flex-1 p-6 space-y-6">
-      {/* Header */}
-      <div className="space-y-2">
-        <h1 className="text-3xl font-bold text-text-primary flex items-center gap-2">
-          <FileText className="h-8 w-8 text-primary" />
-          Mis Documentos
-        </h1>
-        <p className="text-text-secondary">
-          Gestiona tus archivos y genera enlaces seguros de descarga
-        </p>
-      </div>
-
+    <Card className="p-6">
       <Tabs defaultValue="documents" className="w-full">
         <TabsList className="grid w-full max-w-md grid-cols-2">
           <TabsTrigger value="documents">Documentos</TabsTrigger>
@@ -353,7 +342,7 @@ const MyDocuments = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+    </Card>
   );
 };
 
