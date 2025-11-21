@@ -31,10 +31,8 @@ import LogoutConfirmation from "@/components/LogoutConfirmation";
 const menuItems = [
   { title: "mis proyectos", url: "/dashboard", icon: Folder },
   { title: "actividad", url: "/dashboard/activity", icon: Activity },
-  { title: "documentos compartidos", url: "/dashboard/documents", icon: FileText },
-  { title: "mis documentos", url: "/my-documents", icon: Download },
-  { title: "seguridad de documentos", url: "/document-security", icon: Shield },
-  { title: "notificaciones", url: "/notification-settings", icon: Bell },
+  { title: "documentos", url: "/documents", icon: FileText },
+  { title: "configuración", url: "/notification-settings", icon: Bell },
   { title: "panel docente", url: "/teacher/dashboard", icon: GraduationCap },
 ];
 

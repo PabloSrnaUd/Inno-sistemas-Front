@@ -85,16 +85,13 @@ const DocumentSecurity = () => {
   };
 
   return (
-    <div className="flex-1 p-6 space-y-6">
+    <Card className="p-6">
       {/* Header con advertencia de seguridad */}
-      <div className="space-y-4">
+      <div className="space-y-4 mb-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-text-primary flex items-center gap-2">
-              <Shield className="h-8 w-8 text-primary" />
-              Seguridad de Documentos
-            </h1>
-            <p className="text-text-secondary mt-1">
+            <h2 className="text-xl font-semibold text-foreground mb-2">Seguridad de Documentos</h2>
+            <p className="text-sm text-muted-foreground">
               Gestiona y protege el acceso a tus documentos
             </p>
           </div>
@@ -273,7 +270,7 @@ const DocumentSecurity = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+    </Card>
   );
 };
 

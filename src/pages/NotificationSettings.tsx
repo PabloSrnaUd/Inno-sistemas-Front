@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Bell, Mail, Smartphone, Monitor, Shield, CheckCircle } from "lucide-react";
+import { Bell, Mail, Smartphone, Monitor, Shield, CheckCircle, FileEdit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
@@ -50,6 +50,13 @@ const NotificationSettings = () => {
       icon: <Monitor className="h-5 w-5" />,
       enabled: true,
       description: "Notificaciones en tiempo real dentro del sistema",
+    },
+    {
+      id: "documentEdits",
+      name: "Ediciones de compañeros",
+      icon: <FileEdit className="h-5 w-5" />,
+      enabled: true,
+      description: "Notificarme cuando un compañero edite un documento compartido",
     },
   ]);
 
